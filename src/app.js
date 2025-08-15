@@ -88,6 +88,8 @@ app.use("/registros", require("./routers/controleAlteracao"));
 app.use("/dashboard", require("./routers/dashboardRouter"));
 app.use("/sistema", require("./routers/sistemaRouter"));
 app.use("/assistentes", require("./routers/assistenteRouter"));
+app.use("/aplicativos", require("./routers/aplicativoRouter"));
+
 // app.use("/lista-omie", require("./routers/listasOmieRouter"));
 // app.use("/integracao", require("./routers/integracaoRouter"));
 // app.use("/moedas", require("./routers/moedaRouter"));

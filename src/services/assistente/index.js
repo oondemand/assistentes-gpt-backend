@@ -56,7 +56,8 @@ const listarComPaginacao = async ({
   const [assistentes, totalDeAssistentes] = await Promise.all([
     Assistente.find({ $and: [{ status: { $ne: "arquivado" } }, ...query] })
       .skip(skip)
-      .limit(limite),
+      .limit(limite)
+      .populate("aplicativo"),
     Assistente.countDocuments({
       $and: [{ status: { $ne: "arquivado" } }, ...query],
     }),
@@ -66,7 +67,7 @@ const listarComPaginacao = async ({
 };
 
 const listarTodosAssistentesAtivos = async () => {
-  return await Assistente.find({ status: "ativo" });
+  return await Assistente.find({ status: "ativo" }).populate("aplicativo");
 };
 
 module.exports = {

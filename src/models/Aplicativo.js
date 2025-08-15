@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
 
 const aplicativoSchema = new mongoose.Schema({
-  url: { type: String },
+  // url: { type: String },
+  // ambiente: { type: String, enum: ["prod", "homolog", "teste"] },
   icone: { type: String },
   nome: { type: String, required: true },
   appKey: { type: String, unique: true, required: true },
-  ambiente: { type: String, enum: ["prod", "homolog", "teste"] },
-  usuarios: [
-    {
-      usuario: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario" },
-      tipoAcesso: String,
-    },
-  ],
+  // usuarios: [
+  //   {
+  //     usuario: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario" },
+  //     tipoAcesso: String,
+  //   },
+  // ],
   status: {
     type: String,
     enum: ["ativo", "inativo"],
