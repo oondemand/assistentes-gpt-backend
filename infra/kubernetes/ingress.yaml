@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: central-oondemand-backend-ingress
+  name: assistentes-gpt-backend-ingress
   namespace: central-oondemand
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-nginx
@@ -22,6 +22,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: central-oondemand-backend-service
+                name: assistentes-gpt-backend-service
                 port:
                   number: 80

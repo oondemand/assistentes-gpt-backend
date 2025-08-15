@@ -1,24 +1,24 @@
 const ControleAlteracao = require("../../models/ControleAlteracao");
 const FiltersUtils = require("../../utils/pagination/filter");
-const Usuario = require("../../models/Usuario");
+// const Usuario = require("../../models/Usuario");
 const PaginationUtils = require("../../utils/pagination");
 
-const buscarIdsUsuariosFiltrados = async ({ nome, searchTerm }) => {
-  if (!nome && !searchTerm) return [];
+// const buscarIdsUsuariosFiltrados = async ({ nome, searchTerm }) => {
+//   if (!nome && !searchTerm) return [];
 
-  const usuariosQuery = FiltersUtils.buildQuery({
-    filtros: { nome },
-    schema: Usuario.schema,
-    searchTerm,
-    camposBusca: ["nome"],
-  });
+//   const usuariosQuery = FiltersUtils.buildQuery({
+//     filtros: { nome },
+//     schema: Usuario.schema,
+//     searchTerm,
+//     camposBusca: ["nome"],
+//   });
 
-  const usuariosIds = await Usuario.find({
-    $and: usuariosQuery,
-  }).select("_id");
+//   const usuariosIds = await Usuario.find({
+//     $and: usuariosQuery,
+//   }).select("_id");
 
-  return usuariosIds.length > 0 ? usuariosIds.map((e) => e._id) : [];
-};
+//   return usuariosIds.length > 0 ? usuariosIds.map((e) => e._id) : [];
+// };
 
 const listarComPaginacao = async ({
   pageIndex,

@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: central-oondemand-backend
+  name: assistentes-gpt-backend
   namespace: central-oondemand
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: central-oondemand-backend
+      app: assistentes-gpt-backend
   template:
     metadata:
       labels:
-        app: central-oondemand-backend
+        app: assistentes-gpt-backend
     spec:
       containers:
-        - name: central-oondemand-backend-container
-          image: ghcr.io/oondemand/central-oondemand-backend:${IMAGE_TAG}
+        - name: assistentes-gpt-backend-container
+          image: ghcr.io/oondemand/assistentes-gpt-backend:${IMAGE_TAG}
           ports:
             - containerPort: 4000
           resources:

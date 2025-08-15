@@ -2,25 +2,19 @@ const mongoose = require("mongoose");
 
 const AssistenteSchema = new mongoose.Schema(
   {
-    modulo: {
-      type: String,
+    nome: String,
+    descricao: String,
+    instrucao: String,
+    mensagemInicial: String,
+    conhecimentos: mongoose.Schema.Types.Mixed,
+    status: { type: String, enum: ["ativo", "inativo"], default: "ativo" },
+    aplicativo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Aplicativo",
       required: true,
-      trim: true,
-    },
-    assistente: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    status: {
-      type: String,
-      enum: ["ativo", "inativo"],
-      default: "ativo",
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 const Assistente = mongoose.model("Assistente", AssistenteSchema);

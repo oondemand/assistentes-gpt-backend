@@ -1,7 +1,7 @@
 const sgMail = require("@sendgrid/mail");
 const { format } = require("date-fns");
 const Sistema = require("../models/Sistema");
-const { conviteTemplate } = require("../constants/template");
+// const { conviteTemplate } = require("../constants/template");
 
 const enviarEmail = async (emailTo, assunto, corpo, anexos = []) => {
   const config = await Sistema.findOne();
@@ -128,7 +128,7 @@ const emailLinkCadastroUsuarioPrestador = async ({ email, nome, url }) => {
 
     const assunto = "Acesso Liberado";
 
-    const corpo = await conviteTemplate({ url });
+    // const corpo = await conviteTemplate({ url });
 
     return await enviarEmail(emailTo, assunto, corpo);
   } catch (error) {

@@ -12,7 +12,7 @@
               properties:
                 message:
                   type: string
-                  example: "central-oondemand-backend rodando - vs 1.0.0"
+                  example: "assistentes-gpt-backend rodando - vs 1.0.0"
                 database:
                   type: string
-                  example: "Conectado em central-oondemand" 
+                  example: "Conectado em central-oondemand"
