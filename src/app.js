@@ -89,6 +89,7 @@ app.use("/dashboard", require("./routers/dashboardRouter"));
 app.use("/sistema", require("./routers/sistemaRouter"));
 app.use("/assistentes", require("./routers/assistenteRouter"));
 app.use("/aplicativos", require("./routers/aplicativoRouter"));
+app.use("/gpt", require("./routers/gptRouter"));
 
 // app.use("/lista-omie", require("./routers/listasOmieRouter"));
 // app.use("/integracao", require("./routers/integracaoRouter"));
