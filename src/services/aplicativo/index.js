@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Aplicativo = require("../../models/Aplicativo");
 // const Usuario = require("../../models/Usuario");
 // const { emailPrimeiroAcesso } = require("../../utils/emailUtils");
@@ -27,13 +28,13 @@ const listar = async ({ usuario }) => {
   // const usuarioExistente = await Usuario.findById(usuario);
   // if (!usuarioExistente) throw new UsuarioNaoEncontradoError();
 
-  if (usuario.tipo === "admin") {
+  if (usuario?.tipo === "admin") {
     const aplicativos = await Aplicativo.find();
     return aplicativos;
   }
 
   const aplicativos = await Aplicativo.find({
-    "usuarios.usuario": usuario._id,
+    "usuarios.usuario": new mongoose.Types.ObjectId(usuario._id),
   });
 
   return aplicativos;

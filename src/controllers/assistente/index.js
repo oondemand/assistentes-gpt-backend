@@ -19,6 +19,7 @@ const listarAssistentes = async (req, res) => {
       pageIndex,
       pageSize,
       searchTerm,
+      usuario: req.usuario,
     });
 
   sendPaginatedResponse({
@@ -35,7 +36,10 @@ const listarAssistentes = async (req, res) => {
 };
 
 const listarAssistentesAtivos = async (req, res) => {
-  const assistentes = await AssistenteService.listarTodosAssistentesAtivos();
+  const assistentes = await AssistenteService.listarTodosAssistentesAtivos({
+    usuario: req.usuario,
+  });
+
   sendResponse({
     res,
     statusCode: 200,

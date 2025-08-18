@@ -33,7 +33,10 @@ const Helpers = require("../../utils/helpers");
 // };
 
 const listarTodos = async (req, res) => {
-  const aplicativos = await AplicativoService.listar({ usuario: req.usuario });
+  const aplicativos = await AplicativoService.listar({
+    usuario: req.usuario,
+  });
+
   Helpers.sendResponse({ res, statusCode: 200, aplicativos });
 };
 
