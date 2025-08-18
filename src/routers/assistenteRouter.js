@@ -16,10 +16,12 @@ router.post(
   asyncHandler(AssistenteController.criarAssistente)
 );
 router.get("/", asyncHandler(AssistenteController.listarAssistentes));
+
 router.get(
   "/ativos",
   asyncHandler(AssistenteController.listarAssistentesAtivos)
 );
+
 router.get("/:id", asyncHandler(AssistenteController.obterAssistente));
 
 router.put(

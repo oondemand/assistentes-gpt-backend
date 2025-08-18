@@ -1,0 +1,3 @@
+const question = () => {};
+
+module.exports = {};
