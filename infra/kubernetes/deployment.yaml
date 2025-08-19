@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: assistentes-gpt-backend
-  namespace: central-oondemand
+  namespace: assistentes-gpt
 spec:
   replicas: 1
   selector:

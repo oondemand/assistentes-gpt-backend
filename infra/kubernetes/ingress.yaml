@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: assistentes-gpt-backend-ingress
-  namespace: central-oondemand
+  namespace: assistentes-gpt
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-nginx
     nginx.ingress.kubernetes.io/rewrite-target: /
@@ -12,10 +12,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - api.central.oondemand.online
+        - api.assistentes-gpt.oondemand.online
       secretName: app-tls
   rules:
-    - host: api.central.oondemand.online
+    - host: api.assistentes-gpt.oondemand.online
       http:
         paths:
           - path: /

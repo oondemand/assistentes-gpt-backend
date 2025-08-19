@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: assistentes-gpt-backend-homolog
-  namespace: central-oondemand-homolog
+  namespace: assistentes-gpt-homolog
 spec:
   replicas: 1
   selector:

@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: assistentes-gpt-backend-homolog-ingress
-  namespace: central-oondemand-homolog
+  namespace: assistentes-gpt-homolog
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-nginx
     nginx.ingress.kubernetes.io/rewrite-target: /
