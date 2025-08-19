@@ -44,9 +44,11 @@ const listarComPaginacao = async ({
   searchTerm,
   usuario,
 }) => {
-  const aplicativos = await Aplicativo.find({
-    "usuarios.usuario": new mongoose.Types.ObjectId(usuario._id),
-  });
+  const aplicativos = await Aplicativo.find(
+    usuario.tipo === "admin"
+      ? {}
+      : { "usuarios.usuario": new mongoose.Types.ObjectId(usuario._id) }
+  );
 
   const query = FiltersUtils.buildQuery({
     filtros,
@@ -82,9 +84,11 @@ const listarComPaginacao = async ({
 };
 
 const listarTodosAssistentesAtivos = async ({ usuario }) => {
-  const aplicativos = await Aplicativo.find({
-    "usuarios.usuario": new mongoose.Types.ObjectId(usuario._id),
-  });
+  const aplicativos = await Aplicativo.find(
+    usuario.tipo === "admin"
+      ? {}
+      : { "usuarios.usuario": new mongoose.Types.ObjectId(usuario._id) }
+  );
 
   return await Assistente.find({
     status: "ativo",
