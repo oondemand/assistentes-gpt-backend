@@ -58,3 +58,5 @@ spec:
               value: "${BASE_URL_APP_PUBLISHER}"
             - name: MEUS_APPS_BACKEND_URL
               value: "${MEUS_APPS_BACKEND_URL}"
+            - name: OPEN_IA_SECRET_KEY
+              value: "${OPEN_IA_SECRET_KEY}"
