@@ -68,10 +68,15 @@ const question = async ({ contexto, assistenteId, questao }) => {
       if (arquivo?.mimetype.includes("pdf")) {
         const buffer = Buffer.from(arquivo.buffer.data);
 
-        // fileMessage.content.push({
-        //   type: "text",
-        //   text: ,
-        // });
+        fileMessage.content.push({
+          type: "file",
+          file: {
+            filename: arquivo.nomeOriginal,
+            file_data: `data:${arquivo.mimetype};base64,${buffer.toString(
+              "base64"
+            )}`,
+          },
+        });
       }
     }
   }
