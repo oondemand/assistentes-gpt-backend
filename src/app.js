@@ -93,7 +93,6 @@ app.use("/gpt", require("./routers/gptRouter"));
 
 // app.use("/lista-omie", require("./routers/listasOmieRouter"));
 // app.use("/integracao", require("./routers/integracaoRouter"));
-// app.use("/moedas", require("./routers/moedaRouter"));
 
 // app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
 app.use(errorMiddleware);
