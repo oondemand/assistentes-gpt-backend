@@ -47,44 +47,39 @@ const question = async ({ contexto, assistenteId, questao }) => {
   const arquivosRemovidos = [];
   const jsonSemBuffers = extractBuffers(contexto, arquivosRemovidos);
 
-  // const fileMessage = {
-  //   role: "user",
-  //   content: [],
-  // };
+  const fileMessage = {
+    role: "user",
+    content: [],
+  };
 
-  // for (const arquivo of arquivosRemovidos) {
-  //   if (typeof arquivo === "object" && "buffer" in arquivo) {
-  //     if (arquivo?.mimetype.includes("image")) {
-  //       const buffer = Buffer.from(arquivo.buffer.data);
+  for (const arquivo of arquivosRemovidos) {
+    if (typeof arquivo === "object" && "buffer" in arquivo) {
+      if (arquivo?.mimetype.includes("image")) {
+        const buffer = Buffer.from(arquivo.buffer.data);
 
-  //       fileMessage.content.push({
-  //         type: "image_url",
-  //         image_url: {
-  //           url: `data:${arquivo.mimetype};base64,${buffer.toString("base64")}`,
-  //         },
-  //       });
-  //     }
+        fileMessage.content.push({
+          type: "image_url",
+          image_url: {
+            url: `data:${arquivo.mimetype};base64,${buffer.toString("base64")}`,
+          },
+        });
+      }
 
-  //     if (arquivo?.mimetype.includes("pdf")) {
-  //       const buffer = Buffer.from(arquivo.buffer.data);
+      if (arquivo?.mimetype.includes("pdf")) {
+        const buffer = Buffer.from(arquivo.buffer.data);
 
-  //       fileMessage.content.push({
-  //         type: "file",
-  //         file: {
-  //           filename: arquivo.nomeOriginal,
-  //           file_data: `data:${arquivo.mimetype};base64,${buffer.toString(
-  //             "base64"
-  //           )}`,
-  //         },
-  //       });
-  //     }
-  //   }
-  // }
+        // fileMessage.content.push({
+        //   type: "text",
+        //   text: ,
+        // });
+      }
+    }
+  }
 
   const mensagensIniciais = [
     { role: "system", content: assistente.instrucao },
     { role: "system", content: JSON.stringify(jsonSemBuffers, null, 4) },
-    // fileMessage,
+    fileMessage,
     { role: "user", content: assistente.mensagemInicial },
     ...(questao ? [{ role: "user", content: questao }] : []),
   ];

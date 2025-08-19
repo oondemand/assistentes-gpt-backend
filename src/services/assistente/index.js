@@ -2,8 +2,7 @@ const Assistente = require("../../models/Assistente");
 const FiltersUtils = require("../../utils/pagination/filter");
 const PaginationUtils = require("../../utils/pagination");
 const AssistenteNaoEncontradoError = require("../errors/assistente/assistenteNaoEncontrado");
-const Aplicativo = require("../../models/Aplicativo");
-const { default: mongoose } = require("mongoose");
+const AplicativoService = require("../aplicativo");
 
 const criar = async ({ assistente }) => {
   const novoAssistente = new Assistente(assistente);
@@ -42,13 +41,11 @@ const listarComPaginacao = async ({
   pageIndex,
   pageSize,
   searchTerm,
-  usuario,
+  token,
 }) => {
-  const aplicativos = await Aplicativo.find(
-    usuario.tipo === "admin"
-      ? {}
-      : { "usuarios.usuario": new mongoose.Types.ObjectId(usuario._id) }
-  );
+  const aplicativos = await AplicativoService.listar({
+    token,
+  });
 
   const query = FiltersUtils.buildQuery({
     filtros,
@@ -70,8 +67,7 @@ const listarComPaginacao = async ({
       ],
     })
       .skip(skip)
-      .limit(limite)
-      .populate("aplicativo"),
+      .limit(limite),
     Assistente.countDocuments({
       $and: [
         { status: { $ne: "arquivado" }, aplicativo: { $in: aplicativos } },
@@ -83,17 +79,15 @@ const listarComPaginacao = async ({
   return { page, limite, assistentes, totalDeAssistentes };
 };
 
-const listarTodosAssistentesAtivos = async ({ usuario }) => {
-  const aplicativos = await Aplicativo.find(
-    usuario.tipo === "admin"
-      ? {}
-      : { "usuarios.usuario": new mongoose.Types.ObjectId(usuario._id) }
-  );
+const listarTodosAssistentesAtivos = async ({ token }) => {
+  const aplicativos = await AplicativoService.listar({
+    token,
+  });
 
   return await Assistente.find({
     status: "ativo",
     aplicativo: { $in: aplicativos },
-  }).populate("aplicativo");
+  });
 };
 
 module.exports = {
