@@ -1,4 +1,5 @@
 const XLSX = require("xlsx");
+const { getBuffer } = require(".");
 
 exports.arredondarValor = (valor) => {
   if (valor !== "") return Math.round(valor * 100) / 100;
@@ -10,7 +11,7 @@ exports.excelToJson = ({
   emptyDefaultValue = "",
   header = 1,
 }) => {
-  const workbook = XLSX.read(arquivo.buffer, {
+  const workbook = XLSX.read(getBuffer(arquivo.buffer), {
     cellDates: true,
     type: "buffer",
   });

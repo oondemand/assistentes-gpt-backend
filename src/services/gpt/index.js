@@ -1,6 +1,7 @@
 const AssistenteService = require("../../services/assistente");
 const { openSession } = require("./session");
 const Utils = require("../../utils");
+const Excel = require("../../utils/excel");
 
 function extractBuffers(obj, files = []) {
   if (Array.isArray(obj))
@@ -58,6 +59,8 @@ const question = async ({ contexto, assistenteId, questao, openIaKey }) => {
     ...(assistente.arquivos ? assistente.arquivos : []),
   ]) {
     if (typeof arquivo === "object" && "buffer" in arquivo) {
+      console.log("mymetype", arquivo.mimetype);
+
       if (arquivo?.mimetype.includes("image")) {
         const buffer = Utils.getBuffer(arquivo.buffer);
 
@@ -80,6 +83,23 @@ const question = async ({ contexto, assistenteId, questao, openIaKey }) => {
               "base64"
             )}`,
           },
+        });
+      }
+
+      if (
+        [
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "application/vnd.ms-excel",
+          "application/vnd.ms-excel.sheet.binary.macroenabled.12",
+        ].includes(arquivo?.mimetype)
+      ) {
+        const json = Excel.excelToJson({
+          arquivo,
+        });
+
+        fileMessage.content.push({
+          type: "text",
+          text: `Esse json é um arquivo excel convertido para json: ${json}`,
         });
       }
     }
