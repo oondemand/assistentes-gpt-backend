@@ -82,11 +82,39 @@ const excluirAssistente = async (req, res) => {
   });
 };
 
+const anexarArquivo = async (req, res) => {
+  const assistente = await AssistenteService.anexarArquivo({
+    id: req.params.id,
+    arquivo: req.file,
+  });
+
+  sendResponse({
+    res,
+    statusCode: 200,
+    assistente,
+  });
+};
+
+const removerArquivo = async (req, res) => {
+  const assistente = await AssistenteService.removerArquivo({
+    arquivoId: req.params.arquivoId,
+    assistenteId: req.params.id,
+  });
+
+  sendResponse({
+    res,
+    statusCode: 200,
+    assistente,
+  });
+};
+
 module.exports = {
-  criarAssistente,
-  listarAssistentes,
-  listarAssistentesAtivos,
+  anexarArquivo,
+  removerArquivo,
   obterAssistente,
-  atualizarAssistente,
+  criarAssistente,
   excluirAssistente,
+  listarAssistentes,
+  atualizarAssistente,
+  listarAssistentesAtivos,
 };

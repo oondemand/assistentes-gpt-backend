@@ -32,7 +32,14 @@ const uploadPDF = multer({
   limits: { fileSize: 2 * 1024 * 1024 }, // Limite de 2MB
 });
 
+const uploadAny = multer({
+  storage: multer.memoryStorage(),
+  fileFilter: (req, file, cb) => cb(null, true),
+  limits: { fileSize: 5 * 1024 * 1024 }, // Limite de 5MB por arquivo
+});
+
 module.exports = {
   uploadExcel,
   uploadPDF,
+  uploadAny,
 };

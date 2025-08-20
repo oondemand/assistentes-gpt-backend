@@ -6,6 +6,7 @@ const {
 } = require("../middlewares/registrarAcaoMiddleware");
 const { ACOES, ENTIDADES } = require("../constants/controleAlteracao");
 const { asyncHandler } = require("../utils/helpers");
+const { uploadAny } = require("../config/multer");
 
 router.post(
   "/",
@@ -15,6 +16,7 @@ router.post(
   }),
   asyncHandler(AssistenteController.criarAssistente)
 );
+
 router.get("/", asyncHandler(AssistenteController.listarAssistentes));
 
 router.get(
@@ -40,6 +42,17 @@ router.delete(
     entidade: ENTIDADES.CONFIGURACAO_ASSISTENTE,
   }),
   asyncHandler(AssistenteController.excluirAssistente)
+);
+
+router.post(
+  "/:id/upload",
+  uploadAny.single("arquivo"),
+  asyncHandler(AssistenteController.anexarArquivo)
+);
+
+router.post(
+  "/:id/remover-arquivo/:arquivoId",
+  asyncHandler(AssistenteController.removerArquivo)
 );
 
 module.exports = router;

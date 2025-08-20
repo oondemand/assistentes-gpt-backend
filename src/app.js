@@ -62,7 +62,7 @@ app.use(logMiddleware);
 
 // app.use("/usuarios", require("./routers/usuarioRouter"));
 // app.use("/pessoas", require("./routers/pessoaRouter"));
-// app.use("/arquivos", require("./routers/arquivoRouter"));
+app.use("/arquivos", require("./routers/arquivoRouter"));
 // app.use(
 //   "/servicos-tomados/tickets",
 //   require("./routers/servicoTomadoTicketRouter")

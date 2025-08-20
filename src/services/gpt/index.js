@@ -1,5 +1,6 @@
 const AssistenteService = require("../../services/assistente");
 const { openSession } = require("./session");
+const Utils = require("../../utils");
 
 function extractBuffers(obj, files = []) {
   if (Array.isArray(obj))
@@ -52,10 +53,13 @@ const question = async ({ contexto, assistenteId, questao, openIaKey }) => {
     content: [],
   };
 
-  for (const arquivo of arquivosRemovidos) {
+  for (const arquivo of [
+    ...arquivosRemovidos,
+    ...(assistente.arquivos ? assistente.arquivos : []),
+  ]) {
     if (typeof arquivo === "object" && "buffer" in arquivo) {
       if (arquivo?.mimetype.includes("image")) {
-        const buffer = Buffer.from(arquivo.buffer.data);
+        const buffer = Utils.getBuffer(arquivo.buffer);
 
         fileMessage.content.push({
           type: "image_url",
@@ -66,12 +70,12 @@ const question = async ({ contexto, assistenteId, questao, openIaKey }) => {
       }
 
       if (arquivo?.mimetype.includes("pdf")) {
-        const buffer = Buffer.from(arquivo.buffer.data);
+        const buffer = Utils.getBuffer(arquivo.buffer);
 
         fileMessage.content.push({
           type: "file",
           file: {
-            filename: arquivo.nomeOriginal,
+            filename: arquivo?.nomeOriginal || arquivo?.nome,
             file_data: `data:${arquivo.mimetype};base64,${buffer.toString(
               "base64"
             )}`,

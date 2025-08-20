@@ -3,6 +3,7 @@ const FiltersUtils = require("../../utils/pagination/filter");
 const PaginationUtils = require("../../utils/pagination");
 const AssistenteNaoEncontradoError = require("../errors/assistente/assistenteNaoEncontrado");
 const AplicativoService = require("../aplicativo");
+const ArquivoService = require("../arquivo");
 
 const criar = async ({ assistente }) => {
   const novoAssistente = new Assistente(assistente);
@@ -31,7 +32,7 @@ const excluir = async ({ id }) => {
 };
 
 const buscarAssistentePorId = async ({ id }) => {
-  const assistente = await Assistente.findById(id);
+  const assistente = await Assistente.findById(id).populate("arquivos");
   if (!assistente || !id) throw new AssistenteNaoEncontradoError();
   return assistente;
 };
@@ -67,7 +68,8 @@ const listarComPaginacao = async ({
       ],
     })
       .skip(skip)
-      .limit(limite),
+      .limit(limite)
+      .populate("arquivos", "-buffer"),
     Assistente.countDocuments({
       $and: [
         { status: { $ne: "arquivado" }, aplicativo: { $in: aplicativos } },
@@ -87,14 +89,44 @@ const listarTodosAssistentesAtivos = async ({ token }) => {
   return await Assistente.find({
     status: "ativo",
     aplicativo: { $in: aplicativos },
+  }).populate("arquivos", "-buffer");
+};
+
+const anexarArquivo = async ({ arquivo, id }) => {
+  const assistente = await Assistente.findById(id);
+  if (!assistente) throw new AssistenteNaoEncontradoError();
+
+  const novoArquivo = await ArquivoService.criarArquivo({
+    arquivo,
   });
+
+  assistente.arquivos = [
+    ...(assistente.arquivos ? assistente.arquivos : []),
+    novoArquivo,
+  ];
+
+  return await assistente.save();
+};
+
+const removerArquivo = async ({ assistenteId, arquivoId }) => {
+  const arquivo = await ArquivoService.obterPorId({ id: arquivoId });
+  if (!arquivo) throw new ArquivoNaoEncontradoError();
+
+  const assistente = await Assistente.findByIdAndUpdate(assistenteId, {
+    $pull: { arquivos: arquivoId },
+  });
+
+  if (!assistente) throw new AssistenteNaoEncontradoError();
+  return arquivo;
 };
 
 module.exports = {
   criar,
-  atualizar,
   excluir,
-  buscarAssistentePorId,
+  atualizar,
+  anexarArquivo,
+  removerArquivo,
   listarComPaginacao,
+  buscarAssistentePorId,
   listarTodosAssistentesAtivos,
 };

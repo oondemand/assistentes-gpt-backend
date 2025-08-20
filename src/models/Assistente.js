@@ -8,6 +8,7 @@ const AssistenteSchema = new mongoose.Schema(
     instrucao: String,
     mensagemInicial: String,
     conhecimentos: mongoose.Schema.Types.Mixed,
+    arquivos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Arquivo" }],
     status: { type: String, enum: ["ativo", "inativo"], default: "ativo" },
     aplicativo: { type: mongoose.Schema.Types.ObjectId, required: true },
   },
