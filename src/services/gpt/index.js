@@ -92,6 +92,7 @@ const question = async ({ contexto, assistenteId, questao, openIaKey }) => {
   const response = await openSession({
     messages: mensagensIniciais,
     openIaKey,
+    model: assistente?.modelo,
   });
 
   return response;

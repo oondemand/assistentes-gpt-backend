@@ -80,7 +80,7 @@ app.use(logMiddleware);
 //   require("./routers/documentoCadastralRouter")
 // );
 app.use("/registros", require("./routers/controleAlteracao"));
-// app.use("/listas", require("./routers/listaRouter"));
+app.use("/listas", require("./routers/listaRouter"));
 // app.use("/estados", require("./routers/estadoRouter"));
 // app.use("/bancos", require("./routers/bancoRouter"));
 // app.use("/planejamento", require("./routers/planejamentoRouter"));

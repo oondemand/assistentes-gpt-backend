@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const AssistenteSchema = new mongoose.Schema(
   {
     nome: String,
+    modelo: String,
     descricao: String,
     instrucao: String,
     mensagemInicial: String,
