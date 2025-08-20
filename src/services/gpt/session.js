@@ -1,8 +1,10 @@
-const client = require("../../config/openAi");
+const OpenAI = require("openai");
 
-const openSession = async ({ messages, model = "gpt-4.1-mini" }) => {
+const openSession = async ({ messages, model = "gpt-4.1-mini", openIaKey }) => {
+  const client = new OpenAI({ apiKey: openIaKey });
+
   const stream = await client.chat.completions.create({
-    model: "gpt-4.1-mini",
+    model,
     temperature: 0,
     messages,
   });

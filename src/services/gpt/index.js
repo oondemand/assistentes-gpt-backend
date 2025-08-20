@@ -39,7 +39,7 @@ function extractBuffers(obj, files = []) {
   return obj;
 }
 
-const question = async ({ contexto, assistenteId, questao }) => {
+const question = async ({ contexto, assistenteId, questao, openIaKey }) => {
   const assistente = await AssistenteService.buscarAssistentePorId({
     id: assistenteId,
   });
@@ -89,7 +89,11 @@ const question = async ({ contexto, assistenteId, questao }) => {
     ...(questao ? [{ role: "user", content: questao }] : []),
   ];
 
-  const response = await openSession({ messages: mensagensIniciais });
+  const response = await openSession({
+    messages: mensagensIniciais,
+    openIaKey,
+  });
+
   return response;
 };
 

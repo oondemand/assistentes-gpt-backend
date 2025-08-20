@@ -6,6 +6,7 @@ const question = async (req, res) => {
     assistenteId: req?.body?.assistenteId,
     contexto: req?.body?.contexto,
     questao: req?.body?.questao,
+    openIaKey: req?.body?.openIaKey,
   });
 
   Helpers.sendResponse({ res, statusCode: 200, result });
