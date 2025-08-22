@@ -1,6 +1,6 @@
 {
   "name": "assistentes-gpt-backend",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Backend para central oondemand",
   "main": "src/server.js",
   "scripts": {
